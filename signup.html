@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S'inscrire - Créez votre mélodie</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="signup-page">
+<div class="container">
+    <h1>Créez votre compte</h1>
+
+    <form id="signupForm">
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" required>
+        </div>
+
+        <div class="form-group">
+            <label>Créez votre mélodie secrète</label>
+            <p class="info">Jouez une séquence de 5 à 15 notes.</p>
+
+            <div class="melody-display hidden-melody" id="initialMelodyDisplay">
+                <span class="placeholder">Notes enregistrées (Cachées)</span>
+            </div>
+
+            <div class="piano" id="initialPiano">
+                <div class="key white" data-note="C" data-key="a"><span>A</span><span class="note-name">Do</span></div>
+                <div class="key black" data-note="C#" data-key="z"><span>Z</span></div>
+                <div class="key white" data-note="D" data-key="e"><span>E</span><span class="note-name">Ré</span></div>
+                <div class="key black" data-note="D#" data-key="r"><span>R</span></div>
+                <div class="key white" data-note="E" data-key="t"><span>T</span><span class="note-name">Mi</span></div>
+                <div class="key white" data-note="F" data-key="y"><span>Y</span><span class="note-name">Fa</span></div>
+                <div class="key black" data-note="F#" data-key="u"><span>U</span></div>
+                <div class="key white" data-note="G" data-key="i"><span>I</span><span class="note-name">Sol</span></div>
+                <div class="key black" data-note="G#" data-key="o"><span>O</span></div>
+                <div class="key white" data-note="A" data-key="p"><span>P</span><span class="note-name">La</span></div>
+                <div class="key black" data-note="A#" data-key="q"><span>Q</span></div>
+                <div class="key white" data-note="B" data-key="s"><span>S</span><span class="note-name">Si</span></div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="clearInitialMelody" class="btn-secondary">Effacer la mélodie</button>
+                <button type="button" id="playInitialMelody" class="btn-secondary" disabled>Réécouter</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirmez votre mélodie secrète</label>
+            <p class="info">Jouez la même séquence une seconde fois.</p>
+
+            <div class="melody-display" id="confirmMelodyDisplay">
+                <span class="placeholder">Aucune note jouée</span>
+            </div>
+
+            <div class="piano" id="confirmPiano">
+                <div class="key white" data-note="C" data-key="a"><span>A</span><span class="note-name">Do</span></div>
+                <div class="key black" data-note="C#" data-key="z"><span>Z</span></div>
+                <div class="key white" data-note="D" data-key="e"><span>E</span><span class="note-name">Ré</span></div>
+                <div class="key black" data-note="D#" data-key="r"><span>R</span></div>
+                <div class="key white" data-note="E" data-key="t"><span>T</span><span class="note-name">Mi</span></div>
+                <div class="key white" data-note="F" data-key="y"><span>Y</span><span class="note-name">Fa</span></div>
+                <div class="key black" data-note="F#" data-key="u"><span>U</span></div>
+                <div class="key white" data-note="G" data-key="i"><span>I</span><span class="note-name">Sol</span></div>
+                <div class="key black" data-note="G#" data-key="o"><span>O</span></div>
+                <div class="key white" data-note="A" data-key="p"><span>P</span><span class="note-name">La</span></div>
+                <div class="key black" data-note="A#" data-key="q"><span>Q</span></div>
+                <div class="key white" data-note="B" data-key="s"><span>S</span><span class="note-name">Si</span></div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="clearConfirmMelody" class="btn-secondary">Effacer la confirmation</button>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <button type="submit" id="submitBtn" disabled>Créer mon compte</button>
+    </form>
+
+    <p class="footer-link">Déjà un compte ? <a href="signin.html">Se connecter</a></p>
+</div>
+
+<script>
+    const notes = {
+        'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13,
+        'E': 329.63, 'F': 349.23, 'F#': 369.99, 'G': 392.00,
+        'G#': 415.30, 'A': 440.00, 'A#': 466.16, 'B': 493.88
+    };
+
+    // Mélodie initiale (le mot de passe)
+    let initialMelody = [];
+    // Mélodie de confirmation
+    let confirmMelody = [];
+
+    const initialMelodyDisplay = document.getElementById('initialMelodyDisplay');
+    const confirmMelodyDisplay = document.getElementById('confirmMelodyDisplay');
+    const playInitialMelodyBtn = document.getElementById('playInitialMelody');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMessage = document.getElementById('errorMessage');
+
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playNote(frequency, duration = 0.3) {
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.value = frequency;
+        oscillator.type = 'sine';
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    /** Met à jour l'affichage de la séquence (chips) */
+    function updateDisplay(melodyArray, displayElement, placeholderText) {
+        if (melodyArray.length === 0) {
+            displayElement.innerHTML = `<span class="placeholder">${placeholderText}</span>`;
+        } else {
+            // Pour la mélodie initiale, nous affichons des puces génériques (sécurité)
+            if (displayElement.id === 'initialMelodyDisplay') {
+                displayElement.innerHTML = melodyArray.map((note) =>
+                    `<span class="note-chip hidden-chip"></span>` // Puce vide ou symbolique
+                ).join('');
+                // Ajout d'une puce 'Total' pour le compte
+                displayElement.innerHTML += `<span class="note-chip count-chip">${melodyArray.length} notes</span>`;
+
+            } else {
+                // Pour la mélodie de confirmation, nous affichons les notes (pour vérification visuelle)
+                displayElement.innerHTML = melodyArray.map(note =>
+                    `<span class="note-chip">${note}</span>`
+                ).join('');
+            }
+        }
+        // Vérifier l'état du bouton Réécouter
+        playInitialMelodyBtn.disabled = melodyArray.length < 5;
+    }
+
+    /** Met à jour l'état du bouton de soumission */
+    function checkFormValidity() {
+        const initialLength = initialMelody.length;
+        const confirmLength = confirmMelody.length;
+
+        // Condition 1: Les deux mélodies doivent avoir entre 5 et 15 notes
+        const isValidLength = (initialLength >= 5 && initialLength <= 15) && (confirmLength >= 5 && confirmLength <= 15);
+
+        // Condition 2: Les deux mélodies sont-elles identiques ?
+        const isMatch = (initialLength === confirmLength) && initialMelody.every((note, index) => note === confirmMelody[index]);
+
+        submitBtn.disabled = !(isValidLength && isMatch);
+    }
+
+    /** Gère l'ajout d'une note à la mélodie appropriée */
+    function handleNoteInput(note, targetArray, displayElementId) {
+        // Déterminer la variable cible et le maximum
+        let targetArrayRef;
+        let maxLen = 15;
+        let placeholderText;
+
+        if (displayElementId === 'initialMelodyDisplay') {
+            targetArrayRef = initialMelody;
+            placeholderText = 'Notes enregistrées (Cachées)';
+        } else if (displayElementId === 'confirmMelodyDisplay') {
+            targetArrayRef = confirmMelody;
+            placeholderText = 'Aucune note jouée';
+        } else {
+            return; // Sécurité
+        }
+
+        if (targetArrayRef.length < maxLen) {
+            targetArrayRef.push(note);
+            playNote(notes[note]);
+
+            // Mise à jour de l'affichage
+            if (displayElementId === 'initialMelodyDisplay') {
+                updateDisplay(initialMelody, initialMelodyDisplay, placeholderText);
+            } else {
+                updateDisplay(confirmMelody, confirmMelodyDisplay, placeholderText);
+            }
+            checkFormValidity();
+            errorMessage.style.display = 'none'; // Cacher les erreurs lors de la saisie
+        } else {
+            errorMessage.textContent = 'Mélodie limitée à 15 notes.';
+            errorMessage.style.display = 'block';
+        }
+    }
+
+    // ===================================
+    // GESTION DES PIANOS (Clavier et Clics)
+    // ===================================
+
+    // Utiliser les mêmes data-key pour les deux pianos
+    const pianoKeys = document.querySelectorAll('.key');
+
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        const pianoKey = document.querySelector(`#initialPiano [data-key="${key}"]`) ||
+            document.querySelector(`#confirmPiano [data-key="${key}"]`);
+
+        if (pianoKey && !e.repeat) {
+            const note = pianoKey.dataset.note;
+            pianoKey.classList.add('active');
+
+            // Déterminer sur quel piano l'utilisateur est en train de se concentrer (simplement par la présence de la touche)
+            // C'est une simplification, le user pourrait jouer sur les deux en même temps.
+            // On va donc utiliser un ciblage plus précis avec les identifiants
+
+            // Si la longueur de la mélodie initiale est inférieure à 15, on suppose qu'on est en train de la créer
+            if (initialMelody.length < 15) {
+                handleNoteInput(note, initialMelody, 'initialMelodyDisplay');
+            } else {
+                // Sinon, on est en train de confirmer
+                handleNoteInput(note, confirmMelody, 'confirmMelodyDisplay');
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        const key = e.key.toLowerCase();
+        document.querySelectorAll(`.piano [data-key="${key}"]`).forEach(pk => {
+            pk.classList.remove('active');
+        });
+    });
+
+    // Gestion des clics sur le premier piano
+    document.querySelectorAll('#initialPiano .key').forEach(key => {
+        key.addEventListener('click', () => {
+            const note = key.dataset.note;
+            key.classList.add('active');
+            handleNoteInput(note, initialMelody, 'initialMelodyDisplay');
+            setTimeout(() => key.classList.remove('active'), 200);
+        });
+    });
+
+    // Gestion des clics sur le deuxième piano
+    document.querySelectorAll('#confirmPiano .key').forEach(key => {
+        key.addEventListener('click', () => {
+            const note = key.dataset.note;
+            key.classList.add('active');
+            handleNoteInput(note, confirmMelody, 'confirmMelodyDisplay');
+            setTimeout(() => key.classList.remove('active'), 200);
+        });
+    });
+
+    // ===================================
+    // GESTION DES BOUTONS DE CONTRÔLE
+    // ===================================
+
+    // Effacer la mélodie initiale
+    document.getElementById('clearInitialMelody').addEventListener('click', () => {
+        initialMelody = [];
+        updateDisplay(initialMelody, initialMelodyDisplay, 'Notes enregistrées (Cachées)');
+        checkFormValidity();
+        errorMessage.style.display = 'none';
+    });
+
+    // Effacer la mélodie de confirmation
+    document.getElementById('clearConfirmMelody').addEventListener('click', () => {
+        confirmMelody = [];
+        updateDisplay(confirmMelody, confirmMelodyDisplay, 'Aucune note jouée');
+        checkFormValidity();
+        errorMessage.style.display = 'none';
+    });
+
+    // Réécouter la mélodie initiale
+    playInitialMelodyBtn.addEventListener('click', () => {
+        // Vérification de base
+        if (initialMelody.length === 0 || playInitialMelodyBtn.disabled) return;
+
+        // Récupère toutes les puces (jetons) de la mélodie initiale (cachés + compteur)
+        const noteChips = initialMelodyDisplay.querySelectorAll('.note-chip');
+
+        initialMelody.forEach((note, index) => {
+            setTimeout(() => {
+                playNote(notes[note]);
+
+                // Trouver la puce correspondante (les puces cachées sont indexées avant la puce compteur)
+                let chipToHighlight = noteChips[index];
+
+                // Si on a atteint la fin des puces cachées, on met en évidence le compteur (qui est le dernier élément)
+                if (!chipToHighlight) {
+                    chipToHighlight = initialMelodyDisplay.querySelector('.count-chip');
+                }
+
+                if (chipToHighlight) {
+                    // Effet visuel pendant la lecture
+                    chipToHighlight.classList.add('playing-playback');
+                    setTimeout(() => chipToHighlight.classList.remove('playing-playback'), 300);
+                }
+            }, index * 400); // 400ms entre chaque note
+        });
+    });
+
+    // ===================================
+    // SOUMISSION DU FORMULAIRE
+    // ===================================
+
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Une dernière vérification pour s'assurer que le bouton n'a pas été activé par erreur
+        if (submitBtn.disabled) {
+            errorMessage.textContent = 'Erreur : Les deux mélodies ne correspondent pas, ou la longueur est incorrecte (5 à 15 notes).';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        const username = document.getElementById('username').value;
+
+        // Sauvegarder la MELODIE INITIALE (le vrai mot de passe)
+        const userData = {
+            username: username,
+            melody: initialMelody
+        };
+
+        localStorage.setItem('user_' + username, JSON.stringify(userData));
+
+        alert('Compte créé avec succès ! Mémorisez bien votre mélodie.');
+        window.location.href = 'signin.html';
+    });
+
+    // Initialisation au chargement
+    updateDisplay(initialMelody, initialMelodyDisplay, 'Notes enregistrées (Cachées)');
+    updateDisplay(confirmMelody, confirmMelodyDisplay, 'Aucune note jouée');
+</script>
+</body>
+</html>

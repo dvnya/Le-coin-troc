@@ -1,240 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Coin Troc - Échangez vos appareils électroniques</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="annonces.css">
-</head>
-<body>
-<!-- Header -->
-<header>
-    <div class="container">
-        <div class="header-content">
-            <div class="logo">Le Coin <span>Troc</span></div>
-            <nav>
-                <a href="#accueil.html">Accueil</a>
-                <a href="annonces.html">Annonces</a>
-                <button class="btn-secondary" onclick="openModal('login')">Connexion</button>
-                <button class="btn-primary" onclick="openModal('signup')">Inscription</button>
-            </nav>
-        </div>
-    </div>
-</header>
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <h1>Échangez vos appareils électroniques</h1>
-        <p>PC, écrans, consoles... Trouvez l'échange parfait près de chez vous</p>
-        <div class="search-bar">
-            <input type="text" placeholder="Que recherchez-vous ? (ex: PlayStation 4, écran 24 pouces...)">
-            <button>Rechercher</button>
-        </div>
-    </div>
-</section>
-
-<!-- Categories -->
-<section class="categories">
-    <div class="container">
-        <h2>Catégories populaires</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <div class="category-icon">💻</div>
-                <h3>Ordinateurs</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🖥️</div>
-                <h3>Écrans</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🎮</div>
-                <h3>Consoles</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">⌨️</div>
-                <h3>Périphériques</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">📱</div>
-                <h3>Smartphones</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🎧</div>
-                <h3>Audio</h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Offers -->
-<section class="offers">
-    <div class="container">
-        <h2>Dernières offres de troc</h2>
-        <div class="offers-grid">
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">💻</div>
-                <div class="offer-content">
-                    <div class="offer-title">MacBook Pro 2019</div>
-                    <div class="offer-description">Contre PC gaming ou console PS5. Excellent état, 16Go RAM</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Paris 75010</span>
-                        <span class="offer-date">Il y a 2h</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">🎮</div>
-                <div class="offer-content">
-                    <div class="offer-title">PS4 Pro + 10 jeux</div>
-                    <div class="offer-description">Cherche Xbox Series X ou écran 4K 27 pouces</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Lyon 69003</span>
-                        <span class="offer-date">Il y a 5h</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">🖥️</div>
-                <div class="offer-content">
-                    <div class="offer-title">Écran Dell 24" Full HD</div>
-                    <div class="offer-description">Contre clavier mécanique + souris gaming</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Marseille 13001</span>
-                        <span class="offer-date">Il y a 1 jour</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">⌨️</div>
-                <div class="offer-content">
-                    <div class="offer-title">Setup gaming complet</div>
-                    <div class="offer-description">Clavier RGB + souris + casque. Contre manette PS5</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Toulouse 31000</span>
-                        <span class="offer-date">Il y a 1 jour</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">📱</div>
-                <div class="offer-content">
-                    <div class="offer-title">iPhone 12 128Go</div>
-                    <div class="offer-description">Contre Samsung Galaxy S21 ou iPad</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Bordeaux 33000</span>
-                        <span class="offer-date">Il y a 2 jours</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offer-card" onclick="openModal('contact')">
-                <div class="offer-image">🎮</div>
-                <div class="offer-content">
-                    <div class="offer-title">Nintendo Switch</div>
-                    <div class="offer-description">+ 5 jeux. Cherche tablette graphique ou drone</div>
-                    <div class="offer-footer">
-                        <span class="offer-location">📍 Nantes 44000</span>
-                        <span class="offer-date">Il y a 3 jours</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Login Modal -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('login')">&times;</span>
-        <h2 style="margin-bottom: 30px; color: #2d3142;">Connexion</h2>
-        <form>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="votre@email.com" required>
-            </div>
-            <div class="form-group">
-                <label>Mot de passe</label>
-                <input type="password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Se connecter</button>
-            <p style="text-align: center; margin-top: 20px; color: #666;">
-                Pas encore de compte ? <a href="#" onclick="closeModal('login'); openModal('signup'); return false;" style="color: #ff6b35; text-decoration: none; font-weight: 600;">Inscrivez-vous</a>
-            </p>
-        </form>
-    </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Jouez votre mélodie</title>
+  <link rel="stylesheet" href="css/style.css"> </head>
+<body class="home">
+<div class="container">
+  <h1>CHOISISSEZ</h1>
+  <button class="fuyard" id="login">Se connecter</button>
+  <button class="fuyard" id="signup">S'inscrire</button>
 </div>
 
-<!-- Signup Modal -->
-<div id="signupModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('signup')">&times;</span>
-        <h2 style="margin-bottom: 30px; color: #2d3142;">Inscription</h2>
-        <form>
-            <div class="form-group">
-                <label>Nom complet</label>
-                <input type="text" placeholder="Jean Dupont" required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="votre@email.com" required>
-            </div>
-            <div class="form-group">
-                <label>Ville</label>
-                <input type="text" placeholder="Paris" required>
-            </div>
-            <div class="form-group">
-                <label>Mot de passe</label>
-                <input type="password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Créer mon compte</button>
-            <p style="text-align: center; margin-top: 20px; color: #666;">
-                Déjà inscrit ? <a href="#" onclick="closeModal('signup'); openModal('login'); return false;" style="color: #ff6b35; text-decoration: none; font-weight: 600;">Connectez-vous</a>
-            </p>
-        </form>
-    </div>
-</div>
+<script>
+  document.getElementById('login').addEventListener('click', function() {
+    window.location.href = 'signin.html';
+  });
 
-<!-- Contact Modal -->
-<div id="contactModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal('contact')">&times;</span>
-        <h2 style="margin-bottom: 30px; color: #2d3142;">Proposer un échange</h2>
-        <form>
-            <div class="form-group">
-                <label>Votre nom</label>
-                <input type="text" placeholder="Jean Dupont" required>
-            </div>
-            <div class="form-group">
-                <label>Votre email</label>
-                <input type="email" placeholder="votre@email.com" required>
-            </div>
-            <div class="form-group">
-                <label>Ce que vous proposez</label>
-                <textarea placeholder="Décrivez ce que vous proposez en échange..." required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Message (optionnel)</label>
-                <textarea placeholder="Informations complémentaires..."></textarea>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Envoyer ma proposition</button>
-        </form>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <p><strong>Le Coin Troc</strong> - Plateforme d'échange d'appareils électroniques</p>
-        <p>© 2024 Le Coin Troc. Tous droits réservés.</p>
-    </div>
-</footer>
-
-<script src="script.js"></script>
+  document.getElementById('signup').addEventListener('click', function() {
+    window.location.href = 'signup.html';
+  });
+</script>
 </body>
 </html>
