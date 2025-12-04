@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toutes les annonces - Le Coin Troc</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="annonces.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">Le Coin <span>Troc</span></div>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="annonces.html" style="color: #ff6b35;">Annonces</a>
+                <button class="btn-secondary" onclick="openModal('login')">Connexion</button>
+                <button class="btn-primary" onclick="openModal('signup')">Inscription</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Page Header -->
+<section class="page-header">
+    <h1>Toutes les annonces</h1>
+    <p>Découvrez toutes les offres d'échange disponibles</p>
+</section>
+
+<!-- Filters Section -->
+<section class="filters-section">
+    <div class="filters-container">
+        <div class="filter-group">
+            <label>Catégorie</label>
+            <select id="categoryFilter">
+                <option value="">Toutes les catégories</option>
+                <option value="ordinateurs">Ordinateurs</option>
+                <option value="ecrans">Écrans</option>
+                <option value="consoles">Consoles</option>
+                <option value="peripheriques">Périphériques</option>
+                <option value="smartphones">Smartphones</option>
+                <option value="audio">Audio</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Ville</label>
+            <input type="text" id="cityFilter" placeholder="Ex: Paris, Lyon...">
+        </div>
+        <div class="filter-group">
+            <label>État</label>
+            <select id="conditionFilter">
+                <option value="">Tous les états</option>
+                <option value="neuf">Neuf</option>
+                <option value="excellent">Excellent état</option>
+                <option value="bon">Bon état</option>
+                <option value="correct">État correct</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Recherche</label>
+            <input type="text" id="searchFilter" placeholder="Mot-clé...">
+        </div>
+    </div>
+</section>
+
+<!-- Results Header -->
+<div class="results-header">
+    <div class="results-count">
+        <span id="resultsCount">48</span> annonces disponibles
+    </div>
+    <select class="sort-dropdown" id="sortBy">
+        <option value="recent">Plus récentes</option>
+        <option value="oldest">Plus anciennes</option>
+        <option value="city">Par ville (A-Z)</option>
+    </select>
+</div>
+
+<!-- Annonces Section -->
+<section class="annonces-section">
+    <div class="container">
+        <div class="offers-grid" id="offersGrid">
+            <!-- Annonce 1 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">💻</div>
+                <div class="offer-content">
+                    <span class="badge badge-new">Nouveau</span>
+                    <div class="offer-title">MacBook Pro 2019 16"</div>
+                    <div class="offer-description">Contre PC gaming ou console PS5. Excellent état, 16Go RAM, 512Go SSD</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Paris 75010</span>
+                        <span class="offer-date">Il y a 2h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 2 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🎮</div>
+                <div class="offer-content">
+                    <span class="badge badge-urgent">Urgent</span>
+                    <div class="offer-title">PS4 Pro 1To + 10 jeux</div>
+                    <div class="offer-description">Cherche Xbox Series X ou écran 4K 27 pouces. Manettes incluses</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Lyon 69003</span>
+                        <span class="offer-date">Il y a 5h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 3 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🖥️</div>
+                <div class="offer-content">
+                    <div class="offer-title">Écran Dell 24" Full HD</div>
+                    <div class="offer-description">Contre clavier mécanique + souris gaming. Excellent état</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Marseille 13001</span>
+                        <span class="offer-date">Il y a 1 jour</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 4 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">⌨️</div>
+                <div class="offer-content">
+                    <span class="badge badge-new">Nouveau</span>
+                    <div class="offer-title">Setup gaming RGB complet</div>
+                    <div class="offer-description">Clavier RGB mécanique + souris + casque. Contre manette PS5 DualSense</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Toulouse 31000</span>
+                        <span class="offer-date">Il y a 1 jour</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 5 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">📱</div>
+                <div class="offer-content">
+                    <div class="offer-title">iPhone 12 Pro 128Go</div>
+                    <div class="offer-description">Contre Samsung Galaxy S21 Ultra ou iPad Air. État neuf</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Bordeaux 33000</span>
+                        <span class="offer-date">Il y a 2 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 6 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🎮</div>
+                <div class="offer-content">
+                    <div class="offer-title">Nintendo Switch OLED</div>
+                    <div class="offer-description">+ 5 jeux dont Zelda. Cherche tablette graphique Wacom ou drone DJI</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Nantes 44000</span>
+                        <span class="offer-date">Il y a 3 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 7 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">💻</div>
+                <div class="offer-content">
+                    <span class="badge badge-urgent">Urgent</span>
+                    <div class="offer-title">PC Gamer RTX 3070</div>
+                    <div class="offer-description">Ryzen 7, 32Go RAM. Contre MacBook Pro 2020+ ou setup complet</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Lille 59000</span>
+                        <span class="offer-date">Il y a 3 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 8 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🖥️</div>
+                <div class="offer-content">
+                    <div class="offer-title">Écran LG 27" 4K IPS</div>
+                    <div class="offer-description">Parfait pour créatifs. Contre iPad Pro ou Surface Pro</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Strasbourg 67000</span>
+                        <span class="offer-date">Il y a 4 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 9 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🎧</div>
+                <div class="offer-content">
+                    <span class="badge badge-new">Nouveau</span>
+                    <div class="offer-title">AirPods Pro 2ème gen</div>
+                    <div class="offer-description">Neufs, jamais ouverts. Contre casque gaming Logitech ou SteelSeries</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Rennes 35000</span>
+                        <span class="offer-date">Il y a 5 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 10 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">📱</div>
+                <div class="offer-content">
+                    <div class="offer-title">Samsung Galaxy S23 Ultra</div>
+                    <div class="offer-description">256Go, état impeccable. Contre iPhone 14 Pro ou laptop gaming</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Nice 06000</span>
+                        <span class="offer-date">Il y a 6 jours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 11 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">🎮</div>
+                <div class="offer-content">
+                    <div class="offer-title">Xbox Series S 512Go</div>
+                    <div class="offer-description">+ Game Pass Ultimate 3 mois. Contre Nintendo Switch ou écran gaming</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Montpellier 34000</span>
+                        <span class="offer-date">Il y a 1 semaine</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annonce 12 -->
+            <div class="offer-card" onclick="openModal('contact')">
+                <div class="offer-image">💻</div>
+                <div class="offer-content">
+                    <span class="badge badge-urgent">Urgent</span>
+                    <div class="offer-title">Dell XPS 15 2022</div>
+                    <div class="offer-description">i7 12ème gen, 16Go, écran OLED. Contre MacBook Air M2 ou gaming setup</div>
+                    <div class="offer-footer">
+                        <span class="offer-location">📍 Grenoble 38000</span>
+                        <span class="offer-date">Il y a 1 semaine</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bouton flottant pour créer une annonce -->
+<button class="btn-float" onclick="openModal('createOffer')" title="Créer une annonce">
+    +
+</button>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('login')">&times;</span>
+        <h2 style="margin-bottom: 30px; color: #2d3142;">Connexion</h2>
+        <form>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Se connecter</button>
+            <p style="text-align: center; margin-top: 20px; color: #666;">
+                Pas encore de compte ? <a href="#" onclick="closeModal('login'); openModal('signup'); return false;" style="color: #ff6b35; text-decoration: none; font-weight: 600;">Inscrivez-vous</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('signup')">&times;</span>
+        <h2 style="margin-bottom: 30px; color: #2d3142;">Inscription</h2>
+        <form>
+            <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" placeholder="Jean Dupont" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Ville</label>
+                <input type="text" placeholder="Paris" required>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Créer mon compte</button>
+            <p style="text-align: center; margin-top: 20px; color: #666;">
+                Déjà inscrit ? <a href="#" onclick="closeModal('signup'); openModal('login'); return false;" style="color: #ff6b35; text-decoration: none; font-weight: 600;">Connectez-vous</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('contact')">&times;</span>
+        <h2 style="margin-bottom: 30px; color: #2d3142;">Proposer un échange</h2>
+        <form>
+            <div class="form-group">
+                <label>Votre nom</label>
+                <input type="text" placeholder="Jean Dupont" required>
+            </div>
+            <div class="form-group">
+                <label>Votre email</label>
+                <input type="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Ce que vous proposez</label>
+                <textarea placeholder="Décrivez ce que vous proposez en échange..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Message (optionnel)</label>
+                <textarea placeholder="Informations complémentaires..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Envoyer ma proposition</button>
+        </form>
+    </div>
+</div>
+
+<!-- Create Offer Modal -->
+<div id="createOfferModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('createOffer')">&times;</span>
+        <h2 style="margin-bottom: 30px; color: #2d3142;">Créer une annonce</h2>
+        <form>
+            <div class="form-group">
+                <label>Titre de l'annonce</label>
+                <input type="text" placeholder="Ex: MacBook Pro 2019" required>
+            </div>
+            <div class="form-group">
+                <label>Catégorie</label>
+                <select required>
+                    <option value="">Sélectionnez une catégorie</option>
+                    <option value="ordinateurs">Ordinateurs</option>
+                    <option value="ecrans">Écrans</option>
+                    <option value="consoles">Consoles</option>
+                    <option value="peripheriques">Périphériques</option>
+                    <option value="smartphones">Smartphones</option>
+                    <option value="audio">Audio</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea placeholder="Décrivez votre appareil et ce que vous recherchez..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>État</label>
+                <select required>
+                    <option value="">Sélectionnez l'état</option>
+                    <option value="neuf">Neuf</option>
+                    <option value="excellent">Excellent état</option>
+                    <option value="bon">Bon état</option>
+                    <option value="correct">État correct</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Ville</label>
+                <input type="text" placeholder="Ex: Paris" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Publier l'annonce</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p><strong>Le Coin Troc</strong> - Plateforme d'échange d'appareils électroniques</p>
+        <p>© 2024 Le Coin Troc. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<script src="annonces.js"></script>
+</body>
+</html>
