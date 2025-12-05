@@ -51,32 +51,7 @@ const questions = [
     id: "annuler",
     text: "❌ Puis-je annuler une proposition ?",
     response: "Non en fait tu t'es engagé c'est à la vie à la mort maintenant. Fallait pas cliquer sur le bouton"
-  }/*,
-  {
-    id: "gratuit",
-    text: "💰 Le service est-il gratuit ?",
-    response: "Oui. Le troc est 100 % gratuit. Le site peut proposer des options premium pour mettre une annonce en avant (optionnel)."
-  },
-  {
-    id: "contact-utilisateur",
-    text: "💬 Comment contacter un autre utilisateur ?",
-    response: "Une messagerie interne permet de communiquer, poser des questions ou organiser la rencontre."
-  },
-  {
-    id: "objet-non-conforme",
-    text: "⚠️ Que faire si l'objet reçu ne correspond pas ?",
-    response: "• Signalez la transaction<br>• Ouvrez un litige<br>• La plateforme peut suspendre le compte en cas d'abus répétés"
-  },
-  {
-    id: "plusieurs-objets",
-    text: "📦 Puis-je proposer plusieurs objets en échange d'un seul ?",
-    response: "Oui. Vous pouvez faire un échange « pack » si l'autre utilisateur accepte."
-  },
-  {
-    id: "securite-main-propre",
-    text: "🔒 Comment sécuriser un échange en main propre ?",
-    response: "• Choisissez un lieu public<br>• Testez l'appareil sur place<br>• Échangez uniquement lorsque vous êtes sûrs de l'accord"
-  }*/
+  }
 ];
 
 // Fonction pour ajouter un message
