@@ -3,25 +3,80 @@ const chatbox = document.getElementById("chatbox");
 // Questions prédéfinies avec leurs réponses
 const questions = [
   {
-    id: "prix",
-    text: "💰 Quels sont vos tarifs ?",
-    response: "Nos tarifs varient selon vos besoins :<br>• Formule Basic : 29€/mois<br>• Formule Pro : 59€/mois<br>• Formule Premium : 99€/mois"
+    id: "presentation",
+    text: "❓ Qu'est-ce que ce site ?",
+    response: "Nous sommes une plateforme géniale mieux que LeBonCoin mais sans payer 😉.<br> Bon rien n'est réellement gratuit donc faudra donner quelque chose en échange."
   },
   {
-    id: "horaires",
-    text: "🕐 Quels sont vos horaires ?",
-    response: "Nous sommes ouverts du lundi au vendredi de 9h à 18h. Fermé le week-end."
+    id: "fonctionnement",
+    text: "🔄 Comment fonctionne le troc ?",
+    response: "Baaaah tu choisi un objet qui te plaît, tu proposes un de tes objets en échange (si t'en a pas tu te débrouille) et si l'autre est d'accord vous procédez à l'échange.(ou pas)"
   },
   {
-    id: "contact",
-    text: "📧 Comment vous contacter ?",
-    response: "Vous pouvez nous contacter :<br>• Email : contact@exemple.com<br>• Téléphone : 01 23 45 67 89<br>• Ou via notre formulaire de contact"
+    id: "types-objets",
+    text: "📱 Quels types d'objets puis-je échanger ?",
+    response: "Tout ce qui est en lien avec l'informatique mais on peut s'arranger si c'est ton chat 😼"
   },
   {
-    id: "services",
-    text: "🛠️ Quels services proposez-vous ?",
-    response: "Nous proposons :<br>• Développement web<br>• Design graphique<br>• Marketing digital<br>• Maintenance et support"
-  }
+    id: "objets-interdits",
+    text: "🚫 Quels objets sont interdits ?",
+    response: "Ton patron, ta belle-mère, ton chien qui fait caca partout et tous les trucs relous que tu peux avoir. (Si c'est null tu gardes nous non plus on en veut pas)"
+  },
+  {
+    id: "deposer-objet",
+    text: "📤 Comment déposer un objet ?",
+    response: "Je sais pas moi t'as qu'à suivre au feeling !"
+  },
+  {
+    id: "proposer-echange",
+    text: "🤝 Comment proposer un échange ?",
+    response: "Tu cliques sur un bouton et c'es bouclé ! ouiiii c'est aussi facile que ça. Enfin j'espère pour toi."
+  },
+  {
+    id: "echange-immediat",
+    text: "⏱️ L'échange est-il immédiat ?",
+    response: "Échange? Quel échange? T'as cru que c'était Amazon ici ? C'est ni repris ni remboursé."
+  },
+  {
+    id: "verification",
+    text: "✅ Les objets sont-ils vérifiés ?",
+    response: "Ils existent c'est déjà pas mal non ? Après pour le reste débrouille toi."
+  },
+  {
+    id: "eviter-problemes",
+    text: "🛡️ Comment éviter les mauvaises surprises ?",
+    response: "En vrai de vrai vas sur un autre site hein. Ici c'est chacun pour soi."
+  },
+  {
+    id: "annuler",
+    text: "❌ Puis-je annuler une proposition ?",
+    response: "Non en fait tu t'es engagé c'est à la vie à la mort maintenant. Fallait pas cliquer sur le bouton"
+  }/*,
+  {
+    id: "gratuit",
+    text: "💰 Le service est-il gratuit ?",
+    response: "Oui. Le troc est 100 % gratuit. Le site peut proposer des options premium pour mettre une annonce en avant (optionnel)."
+  },
+  {
+    id: "contact-utilisateur",
+    text: "💬 Comment contacter un autre utilisateur ?",
+    response: "Une messagerie interne permet de communiquer, poser des questions ou organiser la rencontre."
+  },
+  {
+    id: "objet-non-conforme",
+    text: "⚠️ Que faire si l'objet reçu ne correspond pas ?",
+    response: "• Signalez la transaction<br>• Ouvrez un litige<br>• La plateforme peut suspendre le compte en cas d'abus répétés"
+  },
+  {
+    id: "plusieurs-objets",
+    text: "📦 Puis-je proposer plusieurs objets en échange d'un seul ?",
+    response: "Oui. Vous pouvez faire un échange « pack » si l'autre utilisateur accepte."
+  },
+  {
+    id: "securite-main-propre",
+    text: "🔒 Comment sécuriser un échange en main propre ?",
+    response: "• Choisissez un lieu public<br>• Testez l'appareil sur place<br>• Échangez uniquement lorsque vous êtes sûrs de l'accord"
+  }*/
 ];
 
 // Fonction pour ajouter un message
