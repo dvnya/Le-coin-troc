@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Jouez votre mélodie</title>
+  <link rel="stylesheet" href="sign.css"> </head>
+<body class="home">
+<div class="container">
+  <h1>CHOISISSEZ</h1>
+  <button class="fuyard" id="login">Se connecter</button>
+  <button class="fuyard" id="signup">S'inscrire</button>
+</div>
+
+<script>
+  document.getElementById('login').addEventListener('click', function() {
+    window.location.href = 'sigin.html';
+  });
+
+  document.getElementById('signup').addEventListener('click', function() {
+    window.location.href = 'signup.html';
+  });
+</script>
+</body>
+</html>
