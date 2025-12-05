@@ -1,83 +1,106 @@
 const chatbox = document.getElementById("chatbox");
-const input = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
 
-// Base de réponses organisée
-const responses = {
-  salutations: {
-    keywords: ["bonjour", "salut", "hello", "coucou", "bonsoir", "hi"],
-    response: "Bonjour 😊 ! Comment puis-je vous aider aujourd'hui ?"
+// Questions prédéfinies avec leurs réponses
+const questions = [
+  {
+    id: "prix",
+    text: "💰 Quels sont vos tarifs ?",
+    response: "Nos tarifs varient selon vos besoins :<br>• Formule Basic : 29€/mois<br>• Formule Pro : 59€/mois<br>• Formule Premium : 99€/mois"
   },
-  prix: {
-    keywords: ["prix", "tarif", "coût", "combien", "payer"],
-    response: "Nos tarifs sont disponibles sur la page 'Tarifs'. Souhaitez-vous plus d'informations ?"
+  {
+    id: "horaires",
+    text: "🕐 Quels sont vos horaires ?",
+    response: "Nous sommes ouverts du lundi au vendredi de 9h à 18h. Fermé le week-end."
   },
-  contact: {
-    keywords: ["contact", "joindre", "écrire", "appeler", "téléphone"],
-    response: "Vous pouvez nous contacter via la page 'Contact' ou par email à contact@exemple.com."
+  {
+    id: "contact",
+    text: "📧 Comment vous contacter ?",
+    response: "Vous pouvez nous contacter :<br>• Email : contact@exemple.com<br>• Téléphone : 01 23 45 67 89<br>• Ou via notre formulaire de contact"
   },
-  horaires: {
-    keywords: ["horaire", "ouvert", "ferme", "disponible"],
-    response: "Nous sommes ouverts du lundi au vendredi de 9h à 18h."
-  },
-  aide: {
-    keywords: ["aide", "help", "assistance"],
-    response: "Je peux vous renseigner sur nos tarifs, nos horaires, ou vous indiquer comment nous contacter. Que souhaitez-vous savoir ?"
+  {
+    id: "services",
+    text: "🛠️ Quels services proposez-vous ?",
+    response: "Nous proposons :<br>• Développement web<br>• Design graphique<br>• Marketing digital<br>• Maintenance et support"
   }
-};
-
-// Fonction pour trouver la meilleure réponse
-function findResponse(message) {
-  const lowerMessage = message.toLowerCase().trim();
-  
-  for (let category in responses) {
-    const { keywords, response } = responses[category];
-    if (keywords.some(keyword => lowerMessage.includes(keyword))) {
-      return response;
-    }
-  }
-  
-  return "Je n'ai pas compris votre question. Vous pouvez me demander des informations sur nos prix, horaires ou comment nous contacter.";
-}
+];
 
 // Fonction pour ajouter un message
-function addMessage(sender, text, cls) {
+function addMessage(text, isUser = false) {
   const messageDiv = document.createElement('div');
-  messageDiv.className = `msg ${cls}`;
-  messageDiv.innerHTML = `<strong>${sender} :</strong> ${text}`;
+  messageDiv.className = `msg ${isUser ? 'user' : 'bot'}`;
+  messageDiv.innerHTML = isUser ? `<strong>Vous :</strong> ${text}` : `<strong>Bot :</strong> ${text}`;
   chatbox.appendChild(messageDiv);
   chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-// Fonction pour envoyer un message
-function sendMessage() {
-  const message = input.value.trim();
+// Fonction pour créer les boutons de choix
+function showChoices() {
+  const choicesDiv = document.createElement('div');
+  choicesDiv.className = 'choices';
+  choicesDiv.style.cssText = 'display: flex; flex-direction: column; gap: 10px; margin: 15px 0;';
   
-  if (message === "") return;
+  questions.forEach(q => {
+    const btn = document.createElement('button');
+    btn.textContent = q.text;
+    btn.className = 'choice-btn';
+    btn.style.cssText = 'padding: 12px 20px; border: 2px solid #007bff; background: white; color: #007bff; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.3s;';
+    
+    // Effets hover
+    btn.onmouseenter = () => {
+      btn.style.background = '#007bff';
+      btn.style.color = 'white';
+    };
+    btn.onmouseleave = () => {
+      btn.style.background = 'white';
+      btn.style.color = '#007bff';
+    };
+    
+    btn.onclick = () => handleChoice(q);
+    choicesDiv.appendChild(btn);
+  });
   
-  // Afficher le message utilisateur
-  addMessage("Vous", message, "user");
-  input.value = "";
-  
-  // Désactiver le bouton pendant la réponse
-  sendBtn.disabled = true;
-  
-  // Simuler un délai de réponse
-  setTimeout(() => {
-    const response = findResponse(message);
-    addMessage("Bot", response, "bot");
-    sendBtn.disabled = false;
-    input.focus();
-  }, 500);
+  chatbox.appendChild(choicesDiv);
+  chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-// Gestionnaire d'événement pour le bouton
-sendBtn.onclick = sendMessage;
+// Fonction pour gérer le choix de l'utilisateur
+function handleChoice(question) {
+  // Supprimer les boutons précédents
+  const oldChoices = chatbox.querySelectorAll('.choices');
+  oldChoices.forEach(choice => choice.remove());
+  
+  // Afficher la question choisie
+  addMessage(question.text, true);
+  
+  // Afficher la réponse après un délai
+  setTimeout(() => {
+    addMessage(question.response);
+    
+    // Ajouter un bouton "Autre question ?"
+    setTimeout(() => {
+      const resetDiv = document.createElement('div');
+      resetDiv.style.cssText = 'margin: 15px 0; text-align: center;';
+      
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = '🔄 Poser une autre question';
+      resetBtn.className = 'reset-btn';
+      resetBtn.style.cssText = 'padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;';
+      
+      resetBtn.onmouseenter = () => resetBtn.style.background = '#218838';
+      resetBtn.onmouseleave = () => resetBtn.style.background = '#28a745';
+      
+      resetBtn.onclick = () => {
+        resetDiv.remove();
+        showChoices();
+      };
+      
+      resetDiv.appendChild(resetBtn);
+      chatbox.appendChild(resetDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }, 300);
+  }, 600);
+}
 
-// Permettre l'envoi avec la touche Entrée
-input.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    sendMessage();
-  }
-});
+// Message de bienvenue et affichage des choix au chargement
+addMessage("Bonjour 😊 ! Comment puis-je vous aider aujourd'hui ?");
+setTimeout(() => showChoices(), 500);
